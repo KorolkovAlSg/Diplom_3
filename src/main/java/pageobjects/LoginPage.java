@@ -1,6 +1,9 @@
+package pageobjects;
+
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.locators.RelativeLocator;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
@@ -21,21 +24,24 @@ public class LoginPage {
     //Локатор для заголовка Вход страницы входа
     private By titleEntry = By.xpath(".//h2[text()='Вход']");
 
+    public By getTitleEntry() {
+        return titleEntry;
+    }
+
     //Локатор поля Email
-    private By inputFieldEmail = By.xpath(".//fieldset[1]/div/div/input");
+    private By inputFieldEmail = RelativeLocator.with(By.tagName("input")).above(By.xpath(".//label[text()='Пароль']"));
 
     //Локатор поля Пароль
-    private By inputFieldPassword = By.xpath(".//fieldset[2]/div/div/input");
+    private By inputFieldPassword = RelativeLocator.with(By.tagName("input")).below(By.xpath(".//label[text()='Email']"));
 
     private By logInButton = By.xpath(".//button[text()='Войти']");
 
-    @Step("Клик по полю ввода Email -> ввод email -> клик по полю Password -> ввод пароля")
+    @Step("Заполнить форму авторизации")
     public void setTextInLogInForm(String email, String password){
         driver.findElement(inputFieldEmail).click();
         driver.findElement(inputFieldEmail).sendKeys(email);
         driver.findElement(inputFieldPassword).click();
         driver.findElement(inputFieldPassword).sendKeys(password);
-        clickLogInButton();
     }
 
     @Step("Клик Зарегистрироваться")
