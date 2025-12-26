@@ -62,14 +62,6 @@ public class MainPage {
         return driver.findElement(main).getAttribute("class").contains("tab_tab_type_current__2BEPc");
     }
 
-
-    @Step("waitLoadElement")
-    public void waitLoadElement(WebElement element){
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(driver -> (element.getText() != null
-                && !element.getText().isEmpty()
-        ));
-    }
-
     @Step("waitLoadMainPage")
     public void waitLoadMainPage(){
         new WebDriverWait(driver, Duration.ofSeconds(10)).until(driver -> (driver.findElement(textCreateBurger).getText() != null
